@@ -1,6 +1,6 @@
 name: simple_cluster
-description: Simple clustering library implemented in Dart.
-version: 0.1.0
+description: Simple density-based clustering library implemented in Dart. Mainly used for point-based (vector) data.
+version: 0.1.1
 author: Vincent Utomo <msvcode@gmail.com>
 homepage: https://github.com/MSVCode/simple_cluster
 repository: https://github.com/MSVCode/simple_cluster

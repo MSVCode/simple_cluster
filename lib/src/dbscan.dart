@@ -45,8 +45,9 @@ class DBSCAN {
 
   ///Run clustering process, add configs in constructor
   run(List<List<double>> dataset){
-    if (dataset==null)
+    if (dataset==null) {
       throw new Exception("Dataset must not be null");
+    }
 
     //save dataset to class' variable
     this.dataset = dataset;
@@ -127,8 +128,9 @@ class DBSCAN {
     List<int> newList = [...list1];
 
     for(int i=0;i<list2.length;i++){
-      if (!newList.contains(list2[i]))
+      if (!newList.contains(list2[i])){
         newList.add(list2[i]);
+      }
     }
 
     return newList;
