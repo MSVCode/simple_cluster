@@ -1,0 +1,12 @@
+name: simple_cluster
+description: Simple clustering library implemented in Dart.
+version: 0.0.1
+author: Vincent Utomo <msvcode@gmail.com>
+homepage: https://github.com/MSVCode/scroll_snap_list
+repository: https://github.com/MSVCode/scroll_snap_list
+
+environment:
+  sdk: ">=2.2.2 <3.0.0"
+
+dependencies:
+dev_dependencies:
