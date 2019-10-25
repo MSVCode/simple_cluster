@@ -1,6 +1,8 @@
 ## [0.2.0]
 - Added Hierarchical clustering
 - Moved euclidDistance to common file
++1
+- Added missing export
 
 ## [0.1.2]
 - Updated License
