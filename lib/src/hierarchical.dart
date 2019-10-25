@@ -137,14 +137,16 @@ class Hierarchical {
     //add other info
     _label = List.generate(dataset.length, (_) => -1);
     _noise = [];
+    int currentLabel = 0;
     for (int i = 0; i < _cluster.length; i++) {
-      for (int j = 0; j < _cluster[i].length; j++) {
-        if (_cluster[i].length > 1) {
-          //if a cluster contain one member, consider it as noise
-          _label[_cluster[i][j]] = i;
-        } else {
-          _noise.add(_cluster[i][j]);
+      if (_cluster[i].length > 1) {
+        for (int j = 0; j < _cluster[i].length; j++) {
+          _label[_cluster[i][j]] = currentLabel;
         }
+        currentLabel++;
+      } else {
+        //if a cluster contain one member, consider it as noise
+        _noise.add(_cluster[i][0]);
       }
     }
 

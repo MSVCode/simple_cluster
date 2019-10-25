@@ -128,7 +128,7 @@ Example in dart.
   // Noise
   // [2]
   // Cluster label for points
-  // [1, 1, -1, 1]
+  // [0, 0, -1, 0]
   // ===== 2 =====
   // Clusters output
   // [[1, 0], [4, 3, 2]]
