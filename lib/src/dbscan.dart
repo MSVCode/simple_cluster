@@ -3,7 +3,7 @@ import 'package:simple_cluster/src/common.dart';
 ///Density-based spatial clustering of applications with noise (DBSCAN)
 class DBSCAN {
   ///Complete list of points (in vector form)
-  List<List<double>> dataset;
+  late List<List<double>> dataset;
 
   ///Result clusters
   List<List<int>> _cluster = [];
@@ -12,7 +12,7 @@ class DBSCAN {
   List<int> _noise = [];
 
   ///Cluster label, if prefer sklearn structure of output
-  List<int> _label;
+  List<int>? _label;
 
   ///Threshold distance for two points to be considered as neighbor
   final double epsilon;
@@ -24,7 +24,7 @@ class DBSCAN {
   double Function(List<double>, List<double>) distanceMeasure;
 
   ///Cluster label
-  int _currentLabel;
+  int? _currentLabel;
 
   DBSCAN({
     this.epsilon = 1,
@@ -45,12 +45,12 @@ class DBSCAN {
   ///Cluster label for each points, if prefers sklearn's output structure.
   ///
   ///-1 means noise (doesn't belong in any cluster)
-  List<int> get label {
+  List<int>? get label {
     return _label;
   }
 
   ///Run clustering process, add configs in constructor
-  run(List<List<double>> dataset) {
+  List<List<int>> run(List<List<double>> dataset) {
     if (dataset == null) {
       throw new Exception("Dataset must not be null");
     }
@@ -65,7 +65,7 @@ class DBSCAN {
 
     for (int i = 0; i < dataset.length; i++) {
       //skip labeled points
-      if (_label[i] != -1) continue;
+      if (_label![i] != -1) continue;
 
       //neighbor indexes
       List<int> neighbors = _rangeQuery(dataset[i]);
@@ -75,7 +75,7 @@ class DBSCAN {
       } else {
         //add new cluster
         List<int> newCluster = [];
-        _currentLabel++;
+        _currentLabel = _currentLabel! + 1;
         _cluster.add(newCluster);
         _expandCluster(i, neighbors, newCluster);
       }
@@ -88,20 +88,20 @@ class DBSCAN {
   ///
   ///Mutates parameter `neighbors` and `cluster`.
   void _expandCluster(int pointIndex, List<int> neighbors, List<int> cluster) {
-    _addToCluster(pointIndex, _currentLabel);
+    _addToCluster(pointIndex, _currentLabel!);
 
     for (int i = 0; i < neighbors.length; i++) {
       //Change Noise to border point
       if (_noise.contains(neighbors[i])) {
         _noise.remove(neighbors[i]);
-        _addToCluster(neighbors[i], _currentLabel);
+        _addToCluster(neighbors[i], _currentLabel!);
       }
 
       //skip labeled points
-      if (_label[neighbors[i]] != -1) continue;
+      if (_label![neighbors[i]] != -1) continue;
 
       //add point to cluster
-      _addToCluster(neighbors[i], _currentLabel);
+      _addToCluster(neighbors[i], _currentLabel!);
 
       //expand neighborhood
       List<int> expandedNeighbors = _rangeQuery(dataset[neighbors[i]]);
@@ -115,7 +115,7 @@ class DBSCAN {
   ///Add to cluster and set label to point
   void _addToCluster(int pointIndex, int clusterLabel) {
     _cluster[clusterLabel].add(pointIndex);
-    _label[pointIndex] = clusterLabel;
+    _label![pointIndex] = clusterLabel;
   }
 
   ///Return all point's index within p's eps-neighborhood (including p)
