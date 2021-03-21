@@ -1,3 +1,6 @@
+## [0.3.0]
+- Null-safety support (thanks to stasgora)
+
 ## [0.2.1]
 - Fixed hierarchical labeling
 
