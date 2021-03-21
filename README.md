@@ -7,7 +7,7 @@ In your Dart (or Flutter) project `pubspec.yaml` add the dependency:
 ```yaml
 dependencies:
   ...
-  simple_cluster: ^0.2.0
+  simple_cluster: ^[latest version]
 ```
 
 ## Usage
