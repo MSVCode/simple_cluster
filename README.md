@@ -15,9 +15,9 @@ dependencies:
 Density-based spatial clustering of applications with noise (DBSCAN) [Check Wiki](https://en.wikipedia.org/wiki/DBSCAN).
 
 Parameter:
-- `epsilon`: Minimum distance for two point to be considered as cluster
+- `epsilon`: Maximum distance for two point to be considered as cluster
 - `minPoints`: Minimum points in a single cluster
-- `distanceMeasure`: Distance masure between 2 points
+- `distanceMeasure`: Distance measure between 2 points
 
 Example in dart.
 ```dart

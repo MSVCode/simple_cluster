@@ -12,12 +12,12 @@ class Level {
   List<List<int>> cluster;
 
   ///In this level, cluster index 'joinFrom' are joined into 'joinTo'
-  int joinFrom;
+  int? joinFrom;
 
   ///In this level, cluster index 'joinFrom' are joined into 'joinTo'
-  int joinTo;
+  int? joinTo;
 
-  Level({this.linkage = 0, this.cluster, this.joinFrom, this.joinTo});
+  Level({this.linkage = 0, required this.cluster, this.joinFrom, this.joinTo});
 }
 
 class MinLinkage {
@@ -30,15 +30,15 @@ class MinLinkage {
   ///MinLinkage is between cluster index i & j
   int j;
 
-  MinLinkage({this.i, this.j, this.linkage});
+  MinLinkage({required this.i, required this.j, required this.linkage});
 }
 
 class Hierarchical {
   ///Complete list of points (in vector form)
-  List<List<double>> dataset;
+  late List<List<double>> dataset;
 
   ///Resulting level
-  List<Level> _level;
+  late List<Level> _level;
 
   ///Index of points considered as noise
   List<int> _noise = [];
@@ -60,10 +60,10 @@ class Hierarchical {
   LINKAGE linkage;
 
   ///Linkage measurement
-  double Function(List<double> distanceList) linkageMeasure;
+  double Function(List<double> distanceList)? linkageMeasure;
 
   ///Distance matrix between input
-  List<List<double>> _distanceMatrix;
+  late List<List<double>> _distanceMatrix;
 
   ///Current level's cluster
   List<List<int>> _cluster = [];
@@ -157,7 +157,7 @@ class Hierarchical {
   ///
   ///This is a process done for every hierarchical clustering level.
   Level mergeCluster() {
-    MinLinkage min;
+    MinLinkage? min;
     for (int i = 0; i < _cluster.length; i++) {
       for (int j = 0; j < i; j++) {
         double linkage = getLinkage(_cluster[i], _cluster[j]);
@@ -173,7 +173,7 @@ class Hierarchical {
         .map((oneClus) => oneClus.map((index) => index).toList())
         .toList();
     //join cluster index j into i
-    cluster[min.i].addAll(cluster[min.j]);
+    cluster[min!.i].addAll(cluster[min.j]);
     //and remove cluster index j
     cluster.removeAt(min.j);
     Level currentLevel = Level(
@@ -193,7 +193,7 @@ class Hierarchical {
         ? "$cluster1-$cluster2"
         : "$cluster2-$cluster1";
 
-    if (_cache.containsKey(hash)) return _cache[hash];
+    if (_cache.containsKey(hash)) return _cache[hash]!;
 
     List<double> distanceList = [];
 
@@ -204,7 +204,7 @@ class Hierarchical {
       }
     }
 
-    return _cache[hash] = linkageMeasure(distanceList);
+    return _cache[hash] = linkageMeasure!(distanceList);
   }
 
   ///Get distance between 2 point in dataset
